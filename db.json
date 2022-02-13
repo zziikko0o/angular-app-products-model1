@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Computer",
+      "prix": 4300,
+      "quantity": 600,
+      "selected": true,
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Printer",
+      "prix": 300,
+      "quantity": 100,
+      "selected": false,
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Smartphone",
+      "prix": 4300,
+      "quantity": 600,
+      "selected": true,
+      "available": true
+    },
+    {
+      "name": "produit",
+      "price": "90",
+      "quantity": 0,
+      "selected": true,
+      "available": true,
+      "id": 4
+    },
+    {
+      "id": 6,
+      "name": "zak",
+      "price": "99999999999999",
+      "quantity": 0,
+      "selected": true,
+      "available": true
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <ul class="navbar navbar-nav">
+    <li>
+      <button (click)="onGetAllProducts()" class="btn btn-outline-info m-lg-1">All</button>
+    </li>
+    <li>
+      <button (click)="onGetSelectedProducts()"  class="btn btn-outline-info m-lg-1">Selected</button>
+    </li>
+    <li>
+      <button (click)="onGetAvailableProducts()"  class="btn btn-outline-info m-lg-1">Available</button>
+    </li>
+    <li>
+      <button (click)="onNewProducts()"  class="btn btn-outline-info m-lg-1">New</button>
+    </li>
+  </ul>
+  <ul class="navbar-nav navbar m-lg-auto">
+    <li>
+      <form #f="ngForm" class="form-text" (ngSubmit)="onSearch(f.value)" >
+        <div class="">
+          <input ngModel name="keyword"  type="text">
+          <button class="btn-outline-info btn  btn-sm">
+            <span class="fa fa-search">
+
+            </span></button>
+        </div>
+      </form>
+    </li>
+  </ul>
+</nav>
+<div class="container"><ng-container *ngIf="products$ | async as result" [ngSwitch]="result.dataState">
+  {{result|json}}
+  <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+    Loading .....
+  </ng-container>
+  <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+    <div class="alert-danger">
+      {{result.errorMessage}}
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+    <table class="table">
+      <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th><th>Selected</th><th>Available</th>
+      </tr>
+      <tr *ngFor="let p of result.data">
+        <td>{{p.id}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.price}}</td>
+        <td>{{p.quantity}}</td>
+        <td>{{p.selected}}</td>
+        <td>{{p.available}}</td>
+        <td>
+          <button (click)="onSelect(p)" [ngClass]="p.selected?'btn-outline-success':'btn-outline-danger'" class="btn">
+            <span *ngIf="p.selected">Unselect</span>
+            <span *ngIf="!p.selected">Select</span>
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="onDelete(p)">
+            <span class="fa fa-trash-o"></span>
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="onEdit(p)">
+            <span class="fa fa-edit"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </ng-container>
+</ng-container>
+</div>
+
+
+
+<!--
+ $ est par convention defini un observable
+
+ pour faire suscrire un Observable il faut mettre pipe en HTML c'est "|async" dans la boucle FOR
+ "|async veut dire que vous surveillez un objet Observable (c'est une maniere de faire susbscibe)
+ -->
